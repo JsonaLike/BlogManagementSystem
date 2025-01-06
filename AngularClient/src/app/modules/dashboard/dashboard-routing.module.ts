@@ -6,6 +6,7 @@ import { AppSidebarComponent } from "./app-dashboard-layout/app-sidebar/app-side
 import { CommonModule } from '@angular/common';
 import { OverviewComponent } from './app-dashboard-layout/pages/overview/overview.component';
 import { PostsComponent } from './app-dashboard-layout/pages/posts/posts.component';
+import { CategoriesComponent } from './app-dashboard-layout/pages/categories/categories.component';
 const routes: Routes = [{
   path:'',
   component: AppDashboardLayoutComponent,
@@ -22,6 +23,10 @@ const routes: Routes = [{
     {
       path: 'posts',
       component:PostsComponent
+    },
+    {
+      path:'categories',
+      component:CategoriesComponent
     }
 
   ]

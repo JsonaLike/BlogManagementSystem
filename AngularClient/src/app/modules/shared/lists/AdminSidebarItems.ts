@@ -16,7 +16,7 @@ export const AdminSidebarItems = [
         children: [],
     },
     {
-        path: '/settings',
+        path: '/dashboard/categories',
         imageSrc: '/assets/category.svg',
         title: 'Categories',
     },

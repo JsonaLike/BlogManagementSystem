@@ -4,9 +4,13 @@
     <div id="sidebarToggle" (click)="toggleSidebar()"> 
       <img src="/assets/menu.png" width="10px">
     </div>
-    <img src="/assets/images/logo-white.svg" id="logoimage">
+    <div class="d-flex align-items-center gap-2">
+        <img src="/assets/logo-white.png" id="logoimage" class="mt-2 ms-2" width="50px">
+        <h4 style="color:white;" class="mt-2"> Dashbaord</h4>
+    </div>
+    
     <div class="seperator"></div>
-    <div class="nav d-flex flex-column">
+    <div class="nav d-flex flex-column mt-3">
         <div *ngFor="let item of AdminSidebarItems" class="item" style="cursor: pointer;">
             <!-- Parent Menu -->
             <div 
