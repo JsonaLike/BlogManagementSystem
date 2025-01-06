@@ -1,16 +1,47 @@
-@if(sidebarVisible){<div id="overlay" (click)="hideSidebar()"></div>}
-        <div class="main-sidebar" >
-            <div id="sidebarToggle" (click)="toggleSidebar()"> <img src="/assets/menu.png" width="10px"></div>
-                <img src="../assets/images/logo-white.svg" id="logoimage">
-            <div class="seperator"></div>
-            <div class="nav d-flex flex-column">
-                <div class="{{location.includes('/dashboard') ? 'select':''}}"   (click)="router.navigate(['/dashboard'])">
-                <div><img src="/assets/images/briefcase.74d2265c4f850fa8cc8042396e9a5d3d.svg"></div>
-                    <div>My Jobs</div>
-                </div>
-                <div id="logout-container">
-                    <div><img src="/assets/images/SignOut.b04da355802ee8dd44d8de4988494304.svg"></div>
-                    <div (click)="logout()">Logout</div>
+@if(sidebarVisible) {
+  <div id="overlay" (click)="hideSidebar()"></div>}
+  <div class="main-sidebar">
+    <div id="sidebarToggle" (click)="toggleSidebar()"> 
+      <img src="/assets/menu.png" width="10px">
+    </div>
+    <img src="/assets/images/logo-white.svg" id="logoimage">
+    <div class="seperator"></div>
+    <div class="nav d-flex flex-column">
+        <div *ngFor="let item of AdminSidebarItems" class="item" style="cursor: pointer;">
+            <!-- Parent Menu -->
+            <div 
+              class="parent-menu d-flex align-items-center gap-3 p-2 mx-2 {{router.url.endsWith(item.path) ? 'active' : ''}}" 
+              id="No{{item.path}}" 
+              (click)="ParentClick(item.path)">
+              <img src="{{item.imageSrc}}" width="25px">
+              <div style="color: white;">{{item.title}}</div>
+              <div 
+                *ngIf="item.children?.length! > 0" 
+                class="arrow-icon" 
+                [class.rotate]="item.expanded"
+                style="margin-left: auto;color: white;">
+                &#9662; <!-- Down arrow symbol -->
                 </div>
             </div>
-        </div>
+          
+            <!-- Submenus -->
+            <div *ngIf="item.children?.length! > 0" class="submenu d-flex flex-column ps-4 d-none" >
+              <div 
+                *ngFor="let child of item.children" 
+                class="submenu-item mx-2 {{router.url.endsWith(child.path) ? 'active' : ''}}"
+                (click)="router.navigate(['/dashboard/' + child.path]);">
+                <div class="d-flex gap-3 p-2">
+                  <img src="{{child.imageSrc}}" width="20px">
+                  <div style="color: white;">{{child.title}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+
+      <div id="logout-container">
+        <div><img src="/assets/images/SignOut.b04da355802ee8dd44d8de4988494304.svg"></div>
+        <div (click)="logout()">Logout</div>
+      </div>
+    </div>
+  </div>

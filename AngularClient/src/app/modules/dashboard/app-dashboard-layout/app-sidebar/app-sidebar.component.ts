@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AdminSidebarItems } from '../../../shared/lists/AdminSidebarItems';
 
 @Component({
   selector: 'app-app-sidebar',
@@ -9,6 +10,7 @@ import { Router } from '@angular/router';
 export class AppSidebarComponent {
   location:string = window.location.href;
   sidebarVisible:boolean=true;
+  AdminSidebarItems = AdminSidebarItems;
   constructor(public router:Router){}
   ngOnInit(): void {
     this.addResponsiveListener();
@@ -49,6 +51,22 @@ showSidebar() {
     sidebar!.classList.remove('hidden'); 
   }
 }
+toggleExpand(item: any): void {
+  item.expanded = !item.expanded;
+}
   logout(){
+    }
+    ParentClick(path:string){
+     var sibiling =  document.getElementById(`No${path}`)?.nextElementSibling;
+     console.log(sibiling);
+     
+     if(sibiling != undefined){
+      document.getElementById(`No${path}`)!.classList.toggle('rotate');
+
+     sibiling!.classList.toggle("d-none");
+     }
+     else{
+      this.router.navigate([path]);
+     }
     }
 }
