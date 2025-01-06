@@ -40,7 +40,6 @@
 #overlay.hidden {
     display: none!important
 }
-
 .item{
     background-color: #001039;
 }
@@ -53,6 +52,15 @@
 .submenu{
     background-color: #001039;
     filter:unset;
+    max-height: 400px;
+    opacity: 100;
+    transition: max-height 0.5s ease, opacity 0.5s ease;
+}
+
+.h0{
+    max-height: 0px;
+    opacity: 0;
+    visibility: hidden;
 }
 .active > *{
     filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(313deg) brightness(98%) contrast(102%);

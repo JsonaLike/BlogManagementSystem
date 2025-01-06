@@ -51,9 +51,6 @@ showSidebar() {
     sidebar!.classList.remove('hidden'); 
   }
 }
-toggleExpand(item: any): void {
-  item.expanded = !item.expanded;
-}
   logout(){
     }
     ParentClick(path:string){
@@ -63,7 +60,7 @@ toggleExpand(item: any): void {
      if(sibiling != undefined){
       document.getElementById(`No${path}`)!.classList.toggle('rotate');
 
-     sibiling!.classList.toggle("d-none");
+     sibiling!.classList.toggle("h0");
      }
      else{
       this.router.navigate([path]);

@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppDashboardLayoutComponent } from './app-dashboard-layout/app-dashboard-layout.component';
-import { HomeComponent } from './app-dashboard-layout/home/home.component';
+import { HomeComponent } from './app-dashboard-layout/pages/home/home.component';
 import { AppSidebarComponent } from "./app-dashboard-layout/app-sidebar/app-sidebar.component";
 import { CommonModule } from '@angular/common';
-import { OverviewComponent } from './app-dashboard-layout/overview/overview.component';
-import { PostsComponent } from './app-dashboard-layout/posts/posts.component';
+import { OverviewComponent } from './app-dashboard-layout/pages/overview/overview.component';
+import { PostsComponent } from './app-dashboard-layout/pages/posts/posts.component';
 const routes: Routes = [{
   path:'',
   component: AppDashboardLayoutComponent,
