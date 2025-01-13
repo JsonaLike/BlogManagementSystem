@@ -47,6 +47,7 @@ _ = builder.Services.AddScoped<ApplicationInfo>(provider =>
 
     return appContext;
 });
+
 var app = builder.Build();
 
 
@@ -66,7 +67,11 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
+app.UseCors(builder => builder
+    .WithOrigins("http://localhost:4200","https://localhost:4200")
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .AllowCredentials());
 app.MapControllers();
 
 app.Run();

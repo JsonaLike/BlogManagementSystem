@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-overview',
-  standalone: true,
-  imports: [],
+  standalone: false,
   templateUrl: './overview.component.html',
   styleUrl: './overview.component.scss'
 })

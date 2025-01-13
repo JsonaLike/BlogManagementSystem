@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
 import { AppDashboardLayoutComponent } from './app-dashboard-layout/app-dashboard-layout.component';
 import { HomeComponent } from './app-dashboard-layout/pages/home/home.component';
-import { AppSidebarComponent } from "./app-dashboard-layout/app-sidebar/app-sidebar.component";
-import { CommonModule } from '@angular/common';
 import { OverviewComponent } from './app-dashboard-layout/pages/overview/overview.component';
-import { PostsComponent } from './app-dashboard-layout/pages/posts/posts.component';
-import { CategoriesComponent } from './app-dashboard-layout/pages/categories/categories.component';
+import { RouterModule, Routes } from '@angular/router';
+import { AppSidebarComponent } from './app-dashboard-layout/app-sidebar/app-sidebar.component';
+import { CommonModule } from '@angular/common';
 const routes: Routes = [{
   path:'',
   component: AppDashboardLayoutComponent,
@@ -22,19 +20,32 @@ const routes: Routes = [{
     },
     {
       path: 'posts',
-      component:PostsComponent
+      loadChildren: () =>
+        import('../dashboard/app-dashboard-layout/posts/posts.module').then(
+          m => m.PostsModule,
+        ),
     },
     {
-      path:'categories',
-      component:CategoriesComponent
+      path: 'categories',
+      loadChildren: () =>
+        import('../dashboard/app-dashboard-layout/categories/categories.module').then(
+          m => m.CategoriesModule,
+        ),
+    },
+    {
+      path: 'settings',
+      loadChildren: () =>
+        import('../dashboard/app-dashboard-layout/settings/settings.module').then(
+          m => m.SettingsModule,
+        ),
     }
 
   ]
 }];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes), RouterModule, CommonModule],
+  imports: [RouterModule.forChild(routes), CommonModule],
   exports: [RouterModule],
-  declarations : [AppDashboardLayoutComponent, AppSidebarComponent]
+  declarations : [AppDashboardLayoutComponent,AppSidebarComponent,OverviewComponent]
 })
 export class DashboardRoutingModule { }

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { AdminSidebarItems } from '../../../shared/lists/AdminSidebarItems';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-app-sidebar',
+  standalone:false,
   templateUrl: './app-sidebar.component.html',
   styleUrl: './app-sidebar.component.scss'
 })

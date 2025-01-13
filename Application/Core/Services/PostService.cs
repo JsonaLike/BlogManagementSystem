@@ -1,32 +1,38 @@
 ﻿using Domain.Dtos;
 using Domain.Entities;
+using Domain.Enums;
 using ERP.Infrastructure.Data;
 using Infrastructure.Extensions;
+using Microsoft.EntityFrameworkCore;
 using MT.Innovation.Shared.Infrastructure;
 using MT.Innovation.Shared.Utils;
-using NLog.LayoutRenderers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Core.Services
 {
     public class PostService
     {
         public ApplicationDbContext _applicationDbContext { get; set; }
-        public PostService(ApplicationDbContext applicationDbContext) {
+        public PostService(ApplicationDbContext applicationDbContext)
+        {
             _applicationDbContext = applicationDbContext;
         }
-        public async Task<PagedList<Post>> GetList(SearchCriteriaBase search)
+        public async Task<PagedList<PostDto>> GetList(SearchCriteriaBase search)
         {
-            PagedList<Post> posts = await _applicationDbContext.Posts.ToPagedListAsync(search.PageNumber, search.PageSize);
+            PagedList<PostDto> posts = await _applicationDbContext.Posts
+                .Include(x => x.Categories)
+                .Select(post => new PostDto
+                {
+                    Id = post.Id.ToString(),
+                    Title = post.Title,
+                    Status = post.Status.ToString(),
+                    Categories = post.Categories.Select(x => x.Name).ToArray(),
+                    Author = post.Author.UserName
+                }).ToPagedListAsync(search.PageNumber, search.PageSize);
             return posts;
         }
         public async Task<Guid> CreatePost(CreatePostDto ideaDto)
         {
-            var post = new Post { Title = ideaDto.Title, Content = ideaDto.Content, Status = "New" };
+            var post = new Post { Title = ideaDto.Title, Content = ideaDto.Content, Status = PostStatus.Posted };
             _applicationDbContext.Posts.Add(post);
             await _applicationDbContext.SaveChangesAsync();
             return post.Id;

@@ -27,7 +27,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetList([FromQuery] SearchCriteriaBase searchCriteria)
         {
-            PagedList<Post> posts = await _postService.GetList(searchCriteria);
+            PagedList<PostDto> posts = await _postService.GetList(searchCriteria);
             return Ok(PagedResult(posts));
         }
 

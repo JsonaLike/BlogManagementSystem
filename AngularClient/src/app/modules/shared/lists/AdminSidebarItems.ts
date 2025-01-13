@@ -21,8 +21,8 @@ export const AdminSidebarItems = [
         title: 'Categories',
     },
     {
-        path: '/Settings',
-        imageSrc: '/assets/icons/notifications.png',
+        path: '/dashboard/settings',
+        imageSrc: '/assets/gear.png',
         title: 'Settings',
     },
     {
