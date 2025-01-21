@@ -9,6 +9,7 @@ import { ButtonModule } from 'primeng/button';
 import { PostsComponent } from './posts/posts.component';
 import { TableModule } from 'primeng/table';
 import { PostViewComponent } from './post-view/post-view.component';
+import { MultiSelectModule } from 'primeng/multiselect';
 @NgModule({
   declarations: [PostsComponent, AddPostComponent, PostViewComponent],
   imports: [
@@ -18,7 +19,8 @@ import { PostViewComponent } from './post-view/post-view.component';
     FormsModule,
     ButtonModule,
     TableModule,
-    InputTextModule
+    InputTextModule,
+    MultiSelectModule
   ]
 })
 export class PostsModule { }

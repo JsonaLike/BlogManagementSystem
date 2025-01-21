@@ -46,7 +46,8 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreatePostDto createDto)
+        [RoleAuthorize("Super Admin")]
+        public async Task<IActionResult> Create([FromForm] CreatePostDto createDto)
         {
             if (!ModelState.IsValid)
             {
@@ -58,7 +59,7 @@ namespace API.Controllers
         }
 
         [HttpPut("{id:guid}")]
-        public async Task<IActionResult> Update(Guid id, [FromBody] UpdatePostDto updateDto)
+        public async Task<IActionResult> Update(Guid id, [FromForm] UpdatePostDto updateDto)
         {
             if (!ModelState.IsValid)
             {

@@ -1,6 +1,7 @@
 ﻿using ERP.Application.Core.Helpers;
 using ERP.Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
+using MT.Innovation.Shared.Infrastructure;
 using System.Security.Claims;
 
 namespace MT.Innovation.WebApiAdmin.Framework;
@@ -12,11 +13,13 @@ public class RoleAuthorizationHandler : AuthorizationHandler<RoleRequirement>
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IConfiguration _config;
     private ApplicationDbContext _dbContext;
-    public RoleAuthorizationHandler(IHttpContextAccessor httpContextAccessor, IConfiguration configuration, ApplicationDbContext dbContext)
+    private ApplicationInfo _applicationInfo;
+    public RoleAuthorizationHandler(IHttpContextAccessor httpContextAccessor, IConfiguration configuration, ApplicationDbContext dbContext,ApplicationInfo applicationInfo)
     {
         _config = configuration;
         _httpContextAccessor = httpContextAccessor;
         _dbContext = dbContext;
+        _applicationInfo = applicationInfo;
     }
 
     protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context,
@@ -46,10 +49,11 @@ public class RoleAuthorizationHandler : AuthorizationHandler<RoleRequirement>
             return;
         }
         var userId = claims.Single(y => y.Type == "nameid").Value;
+        _applicationInfo.CurrentUserId = userId;
         var dbUser = _dbContext.Users.Single(x=>x.Id.ToString() == userId);
             var roleId = _dbContext.Roles.Single(y => y.Name == requirement.Role);
         var UserRoles = _dbContext.UserRoles.ToList();
-        var hasRole = UserRoles.Any(ur => ur.Role.Name == requirement.Role);
+        var hasRole = UserRoles.Any(ur => ur.Role?.Name == requirement.Role);
         if (hasRole) {
             context.Succeed(requirement);
             return;

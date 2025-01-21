@@ -58,9 +58,9 @@ namespace Application.Core.Services
             return await _dbContext.Authors.ToPagedListAsync(criteria.PageNumber, criteria.PageSize);
         }
 
-        public User GetAuthorById(Guid authorId)
+        public Author GetAuthorByUserId(Guid userId)
         {
-            var author = _dbContext.Users.FirstOrDefault(x => x.Id == authorId);
+            var author = _dbContext.Authors.FirstOrDefault(x => x.UserId == userId);
             if (author == null)
             {
                 throw new Exception("Author not found.");

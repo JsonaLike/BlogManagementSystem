@@ -3,8 +3,8 @@
     <h2>Posts</h2>
     <p-button label="Add" class="add-button" (click)="router.navigate(['/dashboard/posts/add'])"/>
   </div>
-    <p-table [value]="posts" showGridlines stripedRows [paginator]="true"
-             [rows]="5" [tableStyle]="{ 'min-width': '50rem' }">
+    <p-table [value]="posts.items" showGridlines stripedRows [paginator]="true" (onPage)="onPageChange($event)"
+             [rows]="7" [totalRecords]="posts.totalCount" [tableStyle]="{ 'min-width': '50rem' }">
       <ng-template pTemplate="header">
         <tr>
           <th>Title</th>
@@ -16,10 +16,10 @@
       <ng-template pTemplate="body" let-post>
         <tr (click)="router.navigate(['/dashboard/posts/edit', post.id])">
           <td>{{ post.title }}</td>
-          <td>{{ post.status }}</td>
+          <td ><div class="{{post.status}}">{{ post.status }}</div></td>
           <td>{{ post.author }}</td>
           <td>
-            <ul class="list-unstyled">
+            <ul class="list-unstyled d-flex">
               <li *ngFor="let category of post.categories; let last = last">{{ category }}<span *ngIf="!last">,</span></li>
             </ul>
           </td>

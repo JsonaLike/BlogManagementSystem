@@ -1,1 +1,87 @@
-<p>settings-overview works!</p>
+<div class="settings-overview">
+    <h1>Settings</h1>
+    
+    <form #settingsForm="ngForm" (ngSubmit)="onSubmit(settingsForm)">
+      <!-- Blog Logo Upload -->
+      <div class="form-group">
+        <label for="blogLogo">Blog Logo</label>
+        <input type="file" id="blogLogo" (change)="onLogoChange($event)" />
+        <img *ngIf="logoPreview" [src]="logoPreview" alt="Blog Logo" width="100" />
+      </div>
+      
+      <!-- Blog Title -->
+      <div class="form-group">
+        <label for="blogTitle">Blog Title</label>
+        <input
+          type="text"
+          id="blogTitle"
+          name="blogTitle"
+          [(ngModel)]="settings.blogTitle"
+          placeholder="Enter blog title"
+          required
+        />
+      </div>
+  
+      <!-- Blog Description -->
+      <div class="form-group">
+        <label for="blogDescription">Blog Description</label>
+        <textarea
+          id="blogDescription"
+          name="blogDescription"
+          [(ngModel)]="settings.blogDescription"
+          placeholder="Enter blog description"
+          required
+        ></textarea>
+      </div>
+  
+      <!-- Theme Color -->
+      <div class="form-group">
+        <label for="themeColor">Theme Color</label>
+        <input
+          type="color"
+          id="themeColor"
+          name="themeColor"
+          [(ngModel)]="settings.themeColor"
+        />
+      </div>
+  
+      <!-- Enable Comments -->
+      <div class="form-group">
+        <label for="enableComments">Enable Comments</label>
+        <input
+          type="checkbox"
+          id="enableComments"
+          name="enableComments"
+          [(ngModel)]="settings.enableComments"
+        />
+      </div>
+  
+      <!-- Social Media Links -->
+      <div class="form-group">
+        <label>Social Media Links</label>
+        <div>
+          <input
+            type="url"
+            placeholder="Facebook URL"
+            [(ngModel)]="settings.socialMediaLinks.facebook"
+            name="facebook"
+          />
+          <input
+            type="url"
+            placeholder="Twitter URL"
+            [(ngModel)]="settings.socialMediaLinks.twitter"
+            name="twitter"
+          />
+          <input
+            type="url"
+            placeholder="Instagram URL"
+            [(ngModel)]="settings.socialMediaLinks.instagram"
+            name="instagram"
+          />
+        </div>
+      </div>
+  
+      <button type="submit" class="btn btn-primary">Save Settings</button>
+    </form>
+  </div>
+  

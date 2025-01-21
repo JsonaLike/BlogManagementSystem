@@ -18,9 +18,12 @@ namespace Infrastructure.Extensions
             {
                 if (entity.State == EntityState.Added)
                 {
-                    var entityBase = (EntityBase)entity.Entity;
-                    entityBase.CreatedAt = now;
-                    entityBase.CreatedBy = username;
+                    if (entity.Entity is EntityBase entityBase)
+                    {
+                        entityBase = (EntityBase)entity.Entity;
+                        entityBase.CreatedAt = now;
+                        entityBase.CreatedBy = username;
+                    }
                 }
                 if (entity.State == EntityState.Modified)
                 {

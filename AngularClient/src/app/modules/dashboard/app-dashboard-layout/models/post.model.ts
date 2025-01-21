@@ -1,3 +1,5 @@
+import { Category } from "./category.model";
+
 export interface Post {
     id: string;
     title: string;
@@ -5,6 +7,6 @@ export interface Post {
     status: string;
     image: string | ArrayBuffer | null;
     authorId: string;
-    categories : string[];
-    
+    categories : Category[];
+    imageBase64: string;
   }

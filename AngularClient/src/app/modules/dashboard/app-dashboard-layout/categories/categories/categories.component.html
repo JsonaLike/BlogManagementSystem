@@ -14,7 +14,7 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-category>
-      <tr>
+      <tr (click)="router.navigate(['/dashboard/categories/edit/', category.id])">
         <td>{{ category.id }}</td>
         <td>{{ category.name }}</td>
         <td>{{ category.description }}</td>

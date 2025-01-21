@@ -12,7 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles); ;
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -23,10 +24,10 @@ builder.Services.AddScoped<IEncryptionService, EncryptionService>();
 builder.Services.AddScoped<AccountService>();
 builder.Services.AddSingleton<IAuthorizationPolicyProvider, RolePolicyProvider>();
 builder.Services.AddScoped<IAuthorizationHandler, RoleAuthorizationHandler>();
+builder.Services.AddScoped<AuthorService>();
 builder.Services.AddScoped<PostService>();
 builder.Services.AddScoped<CategoryService>();
-builder.Services.AddScoped<AuthorService>();
-_ = builder.Services.AddScoped<ApplicationInfo>(provider =>
+_ = builder.Services.AddScoped(provider =>
 {
     var httpContext = provider.GetRequiredService<IHttpContextAccessor>().HttpContext;
     var routeData = httpContext?.GetRouteData().Values;
@@ -73,5 +74,4 @@ app.UseCors(builder => builder
     .AllowAnyHeader()
     .AllowCredentials());
 app.MapControllers();
-
 app.Run();

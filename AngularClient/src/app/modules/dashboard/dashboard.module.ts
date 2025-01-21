@@ -7,7 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { CategoriesComponent } from './app-dashboard-layout/categories/categories/categories.component';
 import { PostsComponent } from './app-dashboard-layout/posts/posts/posts.component';
-
+import { MultiSelectModule } from 'primeng/multiselect';
 @NgModule({
   declarations: [],
   imports: [

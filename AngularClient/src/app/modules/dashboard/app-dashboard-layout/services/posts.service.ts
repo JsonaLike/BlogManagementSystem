@@ -4,16 +4,17 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../../../../environments/environment';
 import { Post } from '../models/post.model';
 import { SearchCriteriaBase } from '../../../shared/models/search-criteria-base.model';
+import { PageListModel } from '../../../shared/models/page-list.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostsService {
-  private readonly apiUrl = environment.baseApiUrl + '/post';
+  private readonly apiUrl = environment.baseApiUrl + '/api/post';
 
   constructor(private http: HttpClient) {}
 
-  getPosts(searchCriteria: SearchCriteriaBase): Observable<{ items: Post[]; totalCount: number }> {
+  getPosts(searchCriteria: SearchCriteriaBase): Observable<PageListModel<Post>> {
     let params = new HttpParams();
     Object.keys(searchCriteria).forEach(key => {
       const value = searchCriteria[key as keyof SearchCriteriaBase];
@@ -22,7 +23,7 @@ export class PostsService {
       }
     });
   
-    return this.http.get<{ items: Post[]; totalCount: number }>(this.apiUrl, { params });
+    return this.http.get<PageListModel<Post>>(this.apiUrl, { params });
   }
   
 
@@ -30,8 +31,8 @@ export class PostsService {
     return this.http.get<Post>(`${this.apiUrl}/${id}`);
   }
 
-  createPost(post: Post): Observable<any> {
-    return this.http.post<any>(this.apiUrl, post);
+  createPost(post: FormData): Observable<any> {
+    return this.http.post<any>(this.apiUrl, post, {withCredentials:true});
   }
 
   updatePost(id: string, post: any): Observable<any> {

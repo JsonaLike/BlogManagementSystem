@@ -19,8 +19,8 @@ namespace BlogManagementSystem.Controllers
             try
             {
                 var token = _accountService.Login(user);
-                Response.Cookies.Append("AuthToken", token);
-                return Ok(token);
+                Response.Cookies.Append("AuthToken", token,new CookieOptions{ SameSite = SameSiteMode.None, Secure = true});
+                return Ok(new {token});
             }
             catch
             {

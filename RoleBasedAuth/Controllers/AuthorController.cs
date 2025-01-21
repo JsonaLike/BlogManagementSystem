@@ -62,7 +62,7 @@ namespace Application.Controllers
         {
             try
             {
-                var author = _authorService.GetAuthorById(id);
+                var author = _authorService.GetAuthorByUserId(id);
                 return Ok(author);
             }
             catch (Exception ex)
